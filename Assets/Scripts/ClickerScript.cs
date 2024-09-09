@@ -8,9 +8,11 @@ public class ClickerScript : MonoBehaviour
     bool holdButton_b;
     [Header("Основы")]
     [SerializeField] TMP_Text money_text;
+    [SerializeField] NeedsManager need_manager;
 
     private void Start()
     {
+        need_manager.Load();
         InvokeRepeating("CheckHold", 0f, 0.5f);
     }
     public void Click_Button()
