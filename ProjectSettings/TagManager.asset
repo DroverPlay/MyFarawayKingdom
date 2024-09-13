@@ -6,6 +6,7 @@ TagManager:
   tags:
   - BG_Music
   - onOffMusic
+  - Ground
   layers:
   - Default
   - TransparentFX

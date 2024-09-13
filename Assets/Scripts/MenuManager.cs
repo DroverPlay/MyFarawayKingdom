@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
@@ -7,24 +8,24 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject medMenu;
     [SerializeField] GameObject shopMenu;
     [SerializeField] GameObject foodMenu;
-    //[SerializeField] GameObject outsideMenu;
+    [SerializeField] GameObject gameMenu;
 
     bool isOpenFun = false;
     bool isOpenMed = false;
     bool isOpenShop = false;
     bool isOpenFood = false;
-    bool isOpenOutside = false;
+    bool isOpenGame = false;
     bool isOpenCategory = false;
     private GameObject Category = null;
 
     private void Start()
     {
-        Application.targetFrameRate = 30;
+        Application.targetFrameRate = 60;
         funMenu.SetActive(isOpenFun);
         medMenu.SetActive(isOpenMed);
         shopMenu.SetActive(isOpenShop);
         foodMenu.SetActive(isOpenFood);
-        //outsideMenu.SetActive(isOpenOutside);
+        gameMenu.SetActive(isOpenGame);
     }
 
     private void CloseAll()
@@ -37,8 +38,8 @@ public class MenuManager : MonoBehaviour
         isOpenShop = false;
         foodMenu.SetActive(false);
         isOpenFood = false;
-        //outsideMenu.SetActive(false);
-        isOpenOutside = false;
+        gameMenu.SetActive(false);
+        isOpenGame = false;
         if (isOpenCategory)
         {
             isOpenCategory = false;
@@ -48,7 +49,7 @@ public class MenuManager : MonoBehaviour
 
     public void OpenFunMenu()
     {
-        if (isOpenMed || isOpenShop || isOpenFood || isOpenOutside || isOpenCategory)
+        if (isOpenMed || isOpenShop || isOpenFood || isOpenGame || isOpenCategory)
         {
             CloseAll();
         }
@@ -58,7 +59,7 @@ public class MenuManager : MonoBehaviour
 
     public void OpenMedMenu()
     {
-        if (isOpenFun || isOpenShop || isOpenFood || isOpenOutside || isOpenCategory)
+        if (isOpenFun || isOpenShop || isOpenFood || isOpenGame || isOpenCategory)
         {
             CloseAll();
         }
@@ -68,7 +69,7 @@ public class MenuManager : MonoBehaviour
 
     public void OpenShopMenu()
     {
-        if (isOpenFun || isOpenMed || isOpenFood || isOpenOutside || isOpenCategory)
+        if (isOpenFun || isOpenMed || isOpenFood || isOpenGame || isOpenCategory)
         {
             CloseAll();
         }
@@ -78,7 +79,7 @@ public class MenuManager : MonoBehaviour
 
     public void OpenFoodMenu()
     {
-        if (isOpenFun || isOpenShop || isOpenMed || isOpenOutside || isOpenCategory)
+        if (isOpenFun || isOpenShop || isOpenMed || isOpenGame || isOpenCategory)
         {
             CloseAll();
         }
@@ -86,25 +87,30 @@ public class MenuManager : MonoBehaviour
         foodMenu.SetActive(isOpenFood);
     }
 
-    public void OpenOutMenu()
+    public void OpenGameMenu()
     {
         if (isOpenFun || isOpenShop || isOpenFood || isOpenMed || isOpenCategory)
         {
             CloseAll();
         }
-        isOpenOutside = !isOpenOutside;
-        //outsideMenu.SetActive(isOpenOutside);
+        isOpenGame = !isOpenGame;
+        gameMenu.SetActive(isOpenGame);
     }
     
     public void OpenShopCategory(GameObject _Category)
     {
-        if (isOpenFun || isOpenShop || isOpenFood || isOpenMed || isOpenOutside)
+        if (isOpenFun || isOpenShop || isOpenFood || isOpenMed || isOpenGame)
         {
             CloseAll();
         }
         isOpenCategory = true;
         _Category.SetActive(isOpenCategory);
         Category = _Category;
+    }
+
+    public void openGame(string _scene)
+    {
+        SceneManager.LoadScene(_scene);
     }
 
     //public void CloseGame()

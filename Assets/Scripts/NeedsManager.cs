@@ -64,17 +64,17 @@ public class NeedsManager : MonoBehaviour
             if (isFood)
             {
                 addNeeds(add, foodSlider, foodCountText);
-                Debug.Log("Это еда :" + SaveData.foodCount);
+                //Debug.Log("Это еда :" + SaveData.foodCount);
             }
             if (isHealth)
             {
                 addNeeds(add, helthSlider, helthCountText);
-                Debug.Log("Это здоровье :" + SaveData.healthCount);
+                //Debug.Log("Это здоровье :" + SaveData.healthCount);
             }
             if (isFun)
             {
                 addNeeds(add, funSlider, funCountText);
-                Debug.Log("Это веселье :" + SaveData.funCount);
+                //Debug.Log("Это веселье :" + SaveData.funCount);
             }
         }
     }
@@ -125,8 +125,10 @@ public class NeedsManager : MonoBehaviour
         }
         else
             isBuy = false;
+
+        moneyCount = Convert.ToInt32(moneyCountText.text);
         SaveData.money = moneyCount;
-        Debug.Log("Количество денег:" + SaveData.money);
+        //Debug.Log("Количество денег:" + SaveData.money);
         Debug.Log(isBuy);
     }
 
@@ -136,7 +138,7 @@ public class NeedsManager : MonoBehaviour
         SaveData.healthCount = Convert.ToInt32(helthCountText.text);
         SaveData.funCount = Convert.ToInt32(funCountText.text);
         SaveData.money = Convert.ToInt32(moneyCountText.text);
-        Debug.Log("Сохранено");
+        //Debug.Log("Сохранено");
     }
     
     public void Load()
@@ -152,6 +154,6 @@ public class NeedsManager : MonoBehaviour
 
         moneyCountText.text = SaveData.money.ToString();
 
-        Debug.Log("Загружено");
+        //Debug.Log("Загружено");
     }
 }
