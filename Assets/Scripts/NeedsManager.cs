@@ -109,18 +109,15 @@ public class NeedsManager : MonoBehaviour
         {
             if (Convert.ToInt32(foodCountText.text) < 100)
             {
-                isBuy = true;
-                moneyCountText.text = Convert.ToString(moneyCount - needMoney);
+                IsBuy(moneyCount, needMoney);
             }
             if (Convert.ToInt32(helthCountText.text) < 100)
             {
-                isBuy = true;
-                moneyCountText.text = Convert.ToString(moneyCount - needMoney);
+                IsBuy(moneyCount, needMoney);
             }
             if (Convert.ToInt32(funCountText.text) < 100)
             {
-                isBuy = true;
-                moneyCountText.text = Convert.ToString(moneyCount - needMoney);
+                IsBuy(moneyCount, needMoney);
             }
         }
         else
@@ -130,6 +127,12 @@ public class NeedsManager : MonoBehaviour
         SaveData.money = moneyCount;
         //Debug.Log("Количество денег:" + SaveData.money);
         Debug.Log(isBuy);
+        }
+
+    private void IsBuy(int money, int needMoneys)
+    {
+        isBuy = true;
+        moneyCountText.text = Convert.ToString(money - needMoneys);
     }
 
     public void Save()
