@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 397765451}
   - component: {fileID: 397765450}
   m_Layer: 5
-  m_Name: Button
+  m_Name: play
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -498,6 +498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d7cbdb34697fba45861fffe43b7e503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: Prolog
 --- !u!1 &444853217
 GameObject:
   m_ObjectHideFlags: 0
