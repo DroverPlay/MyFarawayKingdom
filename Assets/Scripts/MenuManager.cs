@@ -1,120 +1,147 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
+
+// Объявляем enum для типов меню
+public enum MenuType
+{
+    None,
+    Fun,
+    Med,
+    Shop,
+    Food,
+    Game,
+    Category
+}
+
+// Объявляем класс MenuItem ДО основного класса
+[System.Serializable]
+public class MenuItem
+{
+    public MenuType type;
+    public GameObject menuObject;
+}
 
 public class MenuManager : MonoBehaviour
 {
-    [Header("Основы")]
-    [SerializeField] GameObject funMenu;
-    [SerializeField] GameObject medMenu;
-    [SerializeField] GameObject shopMenu;
-    [SerializeField] GameObject foodMenu;
-    [SerializeField] GameObject gameMenu;
+    [Header("Настройки меню")]
+    [SerializeField] private MenuItem[] menus;
+    [SerializeField] private float menuTransitionDelay = 0.2f;
 
-    bool isOpenFun = false;
-    bool isOpenMed = false;
-    bool isOpenShop = false;
-    bool isOpenFood = false;
-    bool isOpenGame = false;
-    bool isOpenCategory = false;
-    private GameObject Category = null;
+    private MenuType currentOpenMenu = MenuType.None;
+    private GameObject currentCategory = null;
+    private bool isTransitioning = false;
 
     private void Start()
     {
         Application.targetFrameRate = 60;
-        funMenu.SetActive(isOpenFun);
-        medMenu.SetActive(isOpenMed);
-        shopMenu.SetActive(isOpenShop);
-        foodMenu.SetActive(isOpenFood);
-        gameMenu.SetActive(isOpenGame);
+        CloseAllMenus();
     }
 
-    private void CloseAll()
+    // Основной метод переключения меню
+    public void ToggleMenu(MenuType menuType)
     {
-        funMenu.SetActive(false);
-        isOpenFun = false;
-        medMenu.SetActive(false);
-        isOpenMed = false;
-        shopMenu.SetActive(false);
-        isOpenShop = false;
-        foodMenu.SetActive(false);
-        isOpenFood = false;
-        gameMenu.SetActive(false);
-        isOpenGame = false;
-        if (isOpenCategory)
+        if (isTransitioning) return;
+
+        if (currentOpenMenu == menuType)
         {
-            isOpenCategory = false;
-            Category.SetActive(false);
+            CloseCurrentMenu();
+            return;
+        }
+
+        StartCoroutine(SwitchMenuRoutine(menuType));
+    }
+
+    // Метод для открытия категорий
+    public void OpenCategory(GameObject category)
+    {
+        if (isTransitioning) return;
+
+        StartCoroutine(SwitchToCategoryRoutine(category));
+    }
+
+    private IEnumerator SwitchMenuRoutine(MenuType newMenu)
+    {
+        isTransitioning = true;
+        CloseCurrentMenu();
+
+        yield return new WaitForSeconds(menuTransitionDelay);
+
+        OpenMenu(newMenu);
+        isTransitioning = false;
+    }
+
+    private IEnumerator SwitchToCategoryRoutine(GameObject category)
+    {
+        isTransitioning = true;
+        CloseCurrentMenu();
+
+        yield return new WaitForSeconds(menuTransitionDelay);
+
+        currentCategory = category;
+        currentOpenMenu = MenuType.Category;
+        category.SetActive(true);
+        isTransitioning = false;
+    }
+
+    private void OpenMenu(MenuType menuType)
+    {
+        foreach (var menu in menus)
+        {
+            if (menu.type == menuType)
+            {
+                menu.menuObject.SetActive(true);
+                currentOpenMenu = menuType;
+                return;
+            }
         }
     }
 
-    public void OpenFunMenu()
+    private void CloseCurrentMenu()
     {
-        if (isOpenMed || isOpenShop || isOpenFood || isOpenGame || isOpenCategory)
+        if (currentOpenMenu == MenuType.Category && currentCategory != null)
         {
-            CloseAll();
+            currentCategory.SetActive(false);
         }
-        isOpenFun = !isOpenFun;
-        funMenu.SetActive(isOpenFun);
-    }
-
-    public void OpenMedMenu()
-    {
-        if (isOpenFun || isOpenShop || isOpenFood || isOpenGame || isOpenCategory)
+        else
         {
-            CloseAll();
+            foreach (var menu in menus)
+            {
+                if (menu.type == currentOpenMenu)
+                {
+                    menu.menuObject.SetActive(false);
+                    break;
+                }
+            }
         }
-        isOpenMed = !isOpenMed;
-        medMenu.SetActive(isOpenMed);
+
+        currentOpenMenu = MenuType.None;
+        currentCategory = null;
     }
 
-    public void OpenShopMenu()
+    private void CloseAllMenus()
     {
-        if (isOpenFun || isOpenMed || isOpenFood || isOpenGame || isOpenCategory)
+        foreach (var menu in menus)
         {
-            CloseAll();
+            menu.menuObject.SetActive(false);
         }
-        isOpenShop = !isOpenShop;
-        shopMenu.SetActive(isOpenShop);
-    }
 
-    public void OpenFoodMenu()
-    {
-        if (isOpenFun || isOpenShop || isOpenMed || isOpenGame || isOpenCategory)
+        if (currentCategory != null)
         {
-            CloseAll();
+            currentCategory.SetActive(false);
         }
-        isOpenFood = !isOpenFood;
-        foodMenu.SetActive(isOpenFood);
+
+        currentOpenMenu = MenuType.None;
+        currentCategory = null;
     }
 
-    public void OpenGameMenu()
+    public void LoadScene(string sceneName)
     {
-        if (isOpenFun || isOpenShop || isOpenFood || isOpenMed || isOpenCategory)
-        {
-            CloseAll();
-        }
-        isOpenGame = !isOpenGame;
-        gameMenu.SetActive(isOpenGame);
+        SceneManager.LoadScene(sceneName);
     }
-    
-    public void OpenShopCategory(GameObject _Category)
-    {
-        if (isOpenFun || isOpenShop || isOpenFood || isOpenMed || isOpenGame)
-        {
-            CloseAll();
-        }
-        isOpenCategory = true;
-        _Category.SetActive(isOpenCategory);
-        Category = _Category;
-    }
-
-    public void openGame(string _scene)
-    {
-        SceneManager.LoadScene(_scene);
-    }
-
-    //public void CloseGame()
-    //{
-
-    //}
+    public void OpenFunMenu() => ToggleMenu(MenuType.Fun);
+    public void OpenMedMenu() => ToggleMenu(MenuType.Med);
+    public void OpenShopMenu() => ToggleMenu(MenuType.Shop);
+    public void OpenFoodMenu() => ToggleMenu(MenuType.Food);
+    public void OpenGameMenu() => ToggleMenu(MenuType.Game);
 }

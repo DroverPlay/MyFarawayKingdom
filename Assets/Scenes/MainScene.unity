@@ -23036,7 +23036,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1734164638}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: OpenShopCategory
+        m_MethodName: OpenCategory
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 231027766}
@@ -23322,6 +23322,8 @@ GameObject:
   - component: {fileID: 1541583948}
   - component: {fileID: 1541583951}
   - component: {fileID: 1541583950}
+  - component: {fileID: 1541583952}
+  - component: {fileID: 1541583953}
   m_Layer: 5
   m_Name: Person
   m_TagString: Untagged
@@ -23338,14 +23340,14 @@ RectTransform:
   m_GameObject: {fileID: 1541583946}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 117083795}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 60}
   m_SizeDelta: {x: 520, y: 1024}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1541583948
@@ -23368,7 +23370,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6864293dc829f7a488baf6157cf039ad, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1e77b82a7c0c7e24199a3c3ad1b6cb94, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -23403,9 +23405,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1734164636}
+        - m_Target: {fileID: 1541583953}
           m_TargetAssemblyTypeName: ClickerScript, Assembly-CSharp
-          m_MethodName: HoldButton
+          m_MethodName: SetHold
           m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -23419,9 +23421,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1734164636}
+        - m_Target: {fileID: 1541583953}
           m_TargetAssemblyTypeName: ClickerScript, Assembly-CSharp
-          m_MethodName: HoldButton
+          m_MethodName: SetHold
           m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -23435,9 +23437,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1734164636}
+        - m_Target: {fileID: 1541583953}
           m_TargetAssemblyTypeName: ClickerScript, Assembly-CSharp
-          m_MethodName: HoldButton
+          m_MethodName: SetHold
           m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -23451,9 +23453,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1734164636}
+        - m_Target: {fileID: 1541583953}
           m_TargetAssemblyTypeName: ClickerScript, Assembly-CSharp
-          m_MethodName: Click_Button
+          m_MethodName: ClickButton
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -23470,7 +23472,7 @@ EdgeCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1541583946}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -23615,6 +23617,207 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 143.6814, y: 65.98134}
   m_UseAdjacentStartPoint: 1
   m_UseAdjacentEndPoint: 1
+--- !u!60 &1541583952
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541583946}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.2, y: 10.24}
+    newSize: {x: 5.2, y: 10.24}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 164.54994, y: -10.466328}
+      - {x: 152.89423, y: 7.2433558}
+      - {x: 148.37157, y: 46.23655}
+      - {x: 133.4197, y: 106.64226}
+      - {x: 144.72552, y: 102.3414}
+      - {x: 158.17253, y: 104.3802}
+      - {x: 148.676, y: 111.05902}
+      - {x: 143.99637, y: 121.38463}
+      - {x: 147.6254, y: 124.6961}
+      - {x: 152.87126, y: 119.90627}
+      - {x: 166.59967, y: 110.36425}
+      - {x: 183.16052, y: 109.90373}
+      - {x: 171.84224, y: 116.3462}
+      - {x: 167.97124, y: 125.33363}
+      - {x: 188.28706, y: 135.09012}
+      - {x: 195.03854, y: 159.84654}
+      - {x: 189.94139, y: 182.2748}
+      - {x: 181.08257, y: 197.29796}
+      - {x: 167.1786, y: 214.71349}
+      - {x: 187.66983, y: 218.35388}
+      - {x: 193.70479, y: 225.41971}
+      - {x: 194.69522, y: 236.47432}
+      - {x: 188.38745, y: 224.2501}
+      - {x: 176.20001, y: 220.39014}
+      - {x: 160.79996, y: 223.96391}
+      - {x: 149.84344, y: 230.85318}
+      - {x: 126.139336, y: 254.44318}
+      - {x: 111.24496, y: 277.46585}
+      - {x: 104.41315, y: 295.37802}
+      - {x: 108.79089, y: 304.34756}
+      - {x: 109.00066, y: 316.6969}
+      - {x: 100.42901, y: 351.34644}
+      - {x: 87.28272, y: 383.1441}
+      - {x: 81.66226, y: 409.1359}
+      - {x: 73.06569, y: 427.4699}
+      - {x: 83.29235, y: 455.4981}
+      - {x: 83.458336, y: 493.0054}
+      - {x: 30.293036, y: 470.3192}
+      - {x: 4.5390816, y: 474.33273}
+      - {x: -27.362436, y: 464.3493}
+      - {x: -83.38205, y: 488.98962}
+      - {x: -71.94872, y: 442.25037}
+      - {x: -63.10348, y: 418.81586}
+      - {x: -73.68599, y: 383.69327}
+      - {x: -86.0938, y: 349.32462}
+      - {x: -92.81624, y: 315.95227}
+      - {x: -91.57063, y: 296.20178}
+      - {x: -84.037506, y: 285.7606}
+      - {x: -98.42434, y: 257.5594}
+      - {x: -120.03076, y: 235.96301}
+      - {x: -143.82895, y: 222.18188}
+      - {x: -153.4245, y: 222.48781}
+      - {x: -159.74988, y: 227.59767}
+      - {x: -162.86115, y: 236.84398}
+      - {x: -164.19397, y: 228.04462}
+      - {x: -161.46475, y: 220.09549}
+      - {x: -155.5761, y: 215.0339}
+      - {x: -149.12407, y: 212.83618}
+      - {x: -163.45915, y: 193.63843}
+      - {x: -171.93097, y: 172.7988}
+      - {x: -170.52872, y: 154.55383}
+      - {x: -165.70096, y: 141.61478}
+      - {x: -155.76526, y: 133.58958}
+      - {x: -166.17683, y: 155.24863}
+      - {x: -164.72505, y: 169.91905}
+      - {x: -156.55461, y: 187.53168}
+      - {x: -159.47084, y: 161.63934}
+      - {x: -150.58897, y: 145.71107}
+      - {x: -150.94568, y: 127.270996}
+      - {x: -147.91565, y: 113.32716}
+      - {x: -138.4066, y: 104.18315}
+      - {x: -142.95511, y: 113.9849}
+      - {x: -142.68654, y: 126.79735}
+      - {x: -132.94269, y: 117.255165}
+      - {x: -120.50699, y: 110.83073}
+      - {x: -129.15622, y: 100.00581}
+      - {x: -111.5531, y: 102.65035}
+      - {x: -119.031784, y: 79.515076}
+      - {x: -129.11725, y: 50.60461}
+      - {x: -132.63185, y: 10.520466}
+      - {x: -144.94217, y: -7.447238}
+      - {x: -143.10918, y: -16.705273}
+      - {x: -177.75658, y: -52.542416}
+      - {x: -207.76279, y: -104.55145}
+      - {x: -226.09955, y: -149.76399}
+      - {x: -211.32275, y: -166.31435}
+      - {x: -217.66667, y: -183.51288}
+      - {x: -206.52005, y: -193.8566}
+      - {x: -185.86223, y: -203.9079}
+      - {x: -204.9298, y: -243.1436}
+      - {x: -217.9451, y: -289.63028}
+      - {x: -210.76088, y: -299.78268}
+      - {x: -231.76247, y: -347.107}
+      - {x: -255.28297, y: -414.39172}
+      - {x: -235.71596, y: -426.43262}
+      - {x: -214.28554, y: -430.49344}
+      - {x: -183.57191, y: -435.10477}
+      - {x: -164.53175, y: -425.0051}
+      - {x: -153.15549, y: -409.09372}
+      - {x: -130.42258, y: -402.22653}
+      - {x: -98.620255, y: -409.17947}
+      - {x: -82.22638, y: -408.68555}
+      - {x: -52.67797, y: -394.66418}
+      - {x: -56.45775, y: -426.84818}
+      - {x: -51.448887, y: -474.44952}
+      - {x: -50.761204, y: -505.97153}
+      - {x: -45.298748, y: -512.76587}
+      - {x: -4.0158687, y: -511.8191}
+      - {x: -3.5483122, y: -476.7853}
+      - {x: -11.633205, y: -449.5714}
+      - {x: -20.23351, y: -387.86868}
+      - {x: -0.97559357, y: -385.08926}
+      - {x: 30.854542, y: -393.83347}
+      - {x: 23.033094, y: -462.30103}
+      - {x: 15.502849, y: -481.11908}
+      - {x: 20.758781, y: -511.61697}
+      - {x: 41.363224, y: -512.9019}
+      - {x: 65.323395, y: -509.50586}
+      - {x: 66.93094, y: -443.03653}
+      - {x: 64.4788, y: -399.22137}
+      - {x: 77.47631, y: -407.7361}
+      - {x: 90.65421, y: -407.87164}
+      - {x: 119.65455, y: -402.46918}
+      - {x: 145.21129, y: -395.95642}
+      - {x: 159.1466, y: -401.72623}
+      - {x: 173.09718, y: -415.41592}
+      - {x: 188.53735, y: -423.05927}
+      - {x: 230.52342, y: -423.0819}
+      - {x: 252.51569, y: -410.92175}
+      - {x: 243.49632, y: -371.38705}
+      - {x: 227.61775, y: -326.58084}
+      - {x: 244.35797, y: -312.9085}
+      - {x: 259.85754, y: -294.58868}
+      - {x: 261.00647, y: -270.76025}
+      - {x: 250.95154, y: -250.85127}
+      - {x: 218.10555, y: -185.31346}
+      - {x: 241.05153, y: -167.67096}
+      - {x: 254.14162, y: -139.776}
+      - {x: 224.0678, y: -84.768814}
+      - {x: 199.07753, y: -51.2069}
+      - {x: 163.96298, y: -16.866812}
+  m_UseDelaunayMesh: 0
+--- !u!114 &1541583953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1541583946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd21cd62124462f47bd8b658449e7031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  money_text: {fileID: 1451786407}
+  need_manager: {fileID: 753070188}
+  _clickDelay: 0.1
 --- !u!1 &1552349281
 GameObject:
   m_ObjectHideFlags: 0
@@ -25977,6 +26180,7 @@ GameObject:
   - component: {fileID: 1734164638}
   - component: {fileID: 1734164639}
   - component: {fileID: 1734164640}
+  - component: {fileID: 1734164641}
   m_Layer: 0
   m_Name: ScriptFolder
   m_TagString: Untagged
@@ -25998,6 +26202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   money_text: {fileID: 1451786407}
   need_manager: {fileID: 753070188}
+  _clickDelay: 0.1
 --- !u!4 &1734164637
 Transform:
   m_ObjectHideFlags: 0
@@ -26025,11 +26230,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d132315eade6bf42ac816a3edb67b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  funMenu: {fileID: 1436009088}
-  medMenu: {fileID: 1454963841}
-  shopMenu: {fileID: 246725571}
-  foodMenu: {fileID: 753070184}
-  gameMenu: {fileID: 1091658884}
+  menus:
+  - type: 1
+    menuObject: {fileID: 1436009088}
+  - type: 2
+    menuObject: {fileID: 1454963841}
+  - type: 4
+    menuObject: {fileID: 753070184}
+  - type: 3
+    menuObject: {fileID: 246725571}
+  - type: 5
+    menuObject: {fileID: 1091658884}
+  menuTransitionDelay: 0.2
 --- !u!114 &1734164639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26044,10 +26256,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StaticObj: {fileID: 1541583946}
   BackGround: {fileID: 1486119493}
-  acceleration: 0.1
-  startPosition: 10
-  maxPosition: 11.1
-  minPosition: 8.9
+  smoothSpeed: 5
+  maxOffset: 1.1
 --- !u!114 &1734164640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26060,6 +26270,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d7cbdb34697fba45861fffe43b7e503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: 
+--- !u!114 &1734164641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734164635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb2a28509a3b9b54fa7dce3cf0db462c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StaticObj: {fileID: 1721762785}
+  BackGround: {fileID: 1541583946}
+  smoothSpeed: 3
+  maxOffset: 1.1
 --- !u!1 &1734302161
 GameObject:
   m_ObjectHideFlags: 0
@@ -30606,7 +30833,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1734164638}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: openGame
+        m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
