@@ -135,10 +135,6 @@ public class MenuManager : MonoBehaviour
         currentCategory = null;
     }
 
-    public void LoadScene(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-    }
     public void OpenFunMenu() => ToggleMenu(MenuType.Fun);
     public void OpenMedMenu() => ToggleMenu(MenuType.Med);
     public void OpenShopMenu() => ToggleMenu(MenuType.Shop);

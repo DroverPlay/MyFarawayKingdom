@@ -20,7 +20,8 @@ public class MusicVolume : MonoBehaviour
     private void Awake()
     {
         volumeButton = GameObject.FindWithTag(this.onOffTag).GetComponent<Button>();
-        volumeSource = GameObject.FindWithTag(this.musicTag).GetComponent<AudioSource>();
+        GameObject obj = GameObject.FindWithTag(musicTag);
+        if (obj != null) volumeSource = obj.GetComponent<AudioSource>();
 
         if (volumeSource.volume == 0) { musicOff(); }
         else { musicOn(); }

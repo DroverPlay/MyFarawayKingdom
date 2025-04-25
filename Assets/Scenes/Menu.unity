@@ -215,7 +215,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: MainScene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &397765451
@@ -498,7 +498,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d7cbdb34697fba45861fffe43b7e503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Prolog
 --- !u!1 &444853217
 GameObject:
   m_ObjectHideFlags: 0
@@ -646,7 +645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   volumeButton: {fileID: 444853219}
-  volumeSource: {fileID: 422073623}
+  volumeSource: {fileID: 0}
   musicTag: BG_Music
   onOffTag: onOffMusic
   onSprite: {fileID: 21300000, guid: 77c255cc4a8186d41883b29b1507eb7b, type: 3}

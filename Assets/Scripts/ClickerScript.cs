@@ -16,8 +16,19 @@ public class ClickerScript : MonoBehaviour
     private bool _isHolding;
     private float _lastClickTime;
 
-    private void Start()
+    //private void Start()
+    //{
+    //    need_manager.Load();
+    //    StartCoroutine(HoldClickCoroutine());
+
+    //    Image image = GetComponent<Image>();
+    //    if (image != null)
+    //        image.alphaHitTestMinimumThreshold = 0.1f;
+
+    //}
+    private void Awake()
     {
+        _money = SaveData.money;
         need_manager.Load();
         StartCoroutine(HoldClickCoroutine());
 

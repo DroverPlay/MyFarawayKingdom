@@ -5,6 +5,8 @@ public class SaveData
     private static int saveFunCount;
     private static int saveHealthCount;
 
+    private static float saveMultipleMoney;
+
     public static int money
     {
         get { return saveMoney; }
@@ -24,5 +26,10 @@ public class SaveData
     {
         get { return saveHealthCount; }
         set { saveHealthCount = value; }
+    }
+    public static float multipleMoney
+    {
+        get { return saveMultipleMoney; }
+        set { saveMultipleMoney = value; }
     }
 }
