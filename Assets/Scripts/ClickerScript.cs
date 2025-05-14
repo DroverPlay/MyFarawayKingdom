@@ -29,7 +29,7 @@ public class ClickerScript : MonoBehaviour
     private void Awake()
     {
         _money = SaveData.money;
-        need_manager.Load();
+        //need_manager.Load();
         StartCoroutine(HoldClickCoroutine());
 
         Image image = GetComponent<Image>();

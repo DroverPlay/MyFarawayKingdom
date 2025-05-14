@@ -3925,6 +3925,7 @@ MonoBehaviour:
   isFood: 0
   isHealth: 0
   isFun: 0
+  isDrop: 0
   foodCount: 0
   _add: 0
 --- !u!114 &231027769
@@ -4525,6 +4526,7 @@ MonoBehaviour:
   isFood: 0
   isHealth: 0
   isFun: 0
+  isDrop: 0
   foodCount: 0
   _add: 0
 --- !u!114 &246725574
@@ -8929,6 +8931,7 @@ MonoBehaviour:
   isFood: 0
   isHealth: 0
   isFun: 0
+  isDrop: 0
   foodCount: 0
   _add: 0
 --- !u!114 &548224214
@@ -12394,6 +12397,7 @@ MonoBehaviour:
   isFood: 1
   isHealth: 0
   isFun: 0
+  isDrop: 0
   foodCount: 0
   _add: 0
 --- !u!1 &759367483
@@ -17110,6 +17114,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1001136122}
   m_CullTransparentMesh: 1
+--- !u!1 &1008749086
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1008749088}
+  - component: {fileID: 1008749087}
+  m_Layer: 0
+  m_Name: needs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1008749087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008749086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa6f646b9203d94fa0d46d212688500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyCountText: {fileID: 1451786407}
+  foodSlider: {fileID: 75626862}
+  foodCountText: {fileID: 1753008124}
+  helthSlider: {fileID: 841284778}
+  helthCountText: {fileID: 169930022}
+  funSlider: {fileID: 1414058392}
+  funCountText: {fileID: 1315052216}
+  isFood: 1
+  isHealth: 1
+  isFun: 1
+  isDrop: 1
+  foodCount: 0
+  _add: 0
+--- !u!4 &1008749088
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008749086}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.6792316, y: 0.8726156, z: 10.824734}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1011582401
 GameObject:
   m_ObjectHideFlags: 0
@@ -18646,6 +18707,7 @@ MonoBehaviour:
   isFood: 0
   isHealth: 0
   isFun: 0
+  isDrop: 0
   foodCount: 0
   _add: 0
 --- !u!114 &1091658887
@@ -23009,6 +23071,7 @@ MonoBehaviour:
   isFood: 0
   isHealth: 0
   isFun: 1
+  isDrop: 0
   foodCount: 0
   _add: 0
 --- !u!114 &1436009091
@@ -23721,6 +23784,7 @@ MonoBehaviour:
   isFood: 0
   isHealth: 1
   isFun: 0
+  isDrop: 0
   foodCount: 0
   _add: 0
 --- !u!114 &1454963844
@@ -37668,3 +37732,4 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 200181760}
   - {fileID: 1734164637}
+  - {fileID: 1008749088}

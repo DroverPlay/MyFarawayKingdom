@@ -3,6 +3,8 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 using System.Collections;
+using System.Linq.Expressions;
+using UnityEditor;
 
 public class NeedsManager : MonoBehaviour
 {
@@ -21,6 +23,7 @@ public class NeedsManager : MonoBehaviour
     [SerializeField] bool isFood;
     [SerializeField] bool isHealth;
     [SerializeField] bool isFun;
+    [SerializeField] bool isDrop;
 
     public int foodCount;
     public float _add;
@@ -61,17 +64,17 @@ public class NeedsManager : MonoBehaviour
     private void Start()
     {
         Load();
-        StartCoroutine(DrainNeedsOverTime());
+        if (isDrop)
+            StartCoroutine(DrainNeedsOverTime());
     }
 
     private IEnumerator DrainNeedsOverTime()
     {
         while (true)
         {
-            yield return new WaitForSeconds(10f); // 1 минута
             dropValue(-1);
-
             Save(); // Сохраняем изменения
+            yield return new WaitForSeconds(1f); // 1 минута
         }
     }
     public void dropValue(int value)
@@ -108,21 +111,13 @@ public class NeedsManager : MonoBehaviour
         foodCount = Convert.ToInt32(text.text);
         foodCount += add;
         text.text = foodCount.ToString();
-        if (Convert.ToInt32(foodCountText.text) > 100)
-        {
-            foodCountText.text = 100.ToString(); ;
-        }
-        if (Convert.ToInt32(helthCountText.text) > 100)
-        {
-            helthCountText.text = 100.ToString();
-        }
-        if (Convert.ToInt32(funCountText.text) > 100)
-        {
-            funCountText.text = 100.ToString();
-        }
+        maxMinCheck(foodCountText);
+        maxMinCheck(helthCountText);
+        maxMinCheck(funCountText); 
         isBuy = false;
     }
     
+
     public void checkMoney(int needMoney)
     {
         int moneyCount = Convert.ToInt32(moneyCountText.text);
@@ -153,6 +148,13 @@ public class NeedsManager : MonoBehaviour
     {
         isBuy = true;
         moneyCountText.text = Convert.ToString(money - needMoneys);
+    }
+    private void maxMinCheck(TMP_Text text)
+    {
+        if (Convert.ToInt32(text.text) > 100)
+        { text.text = 100.ToString(); }
+        if (Convert.ToInt32(text.text) < 0)
+        { text.text = 0.ToString(); }
     }
 
     public void Save()
