@@ -7,6 +7,8 @@ public class SaveData
 
     private static float saveMultipleMoney;
 
+    private static bool saveGameExists;
+
     public static int money
     {
         get { return saveMoney; }
@@ -31,5 +33,10 @@ public class SaveData
     {
         get { return saveMultipleMoney; }
         set { saveMultipleMoney = value; }
+    }
+    public static bool gameExists
+    {
+        get { return saveGameExists; }
+        set { saveGameExists = value; }
     }
 }

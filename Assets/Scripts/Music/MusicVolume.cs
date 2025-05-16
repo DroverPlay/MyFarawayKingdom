@@ -6,6 +6,7 @@ public class MusicVolume : MonoBehaviour
     [Header("Объекты")]
     [SerializeField] private Button volumeButton;
     [SerializeField] private AudioSource volumeSource;
+    [SerializeField] private Slider volumeSlider;
 
     [Header("Теги")]
     [SerializeField] private string musicTag;
@@ -42,5 +43,17 @@ public class MusicVolume : MonoBehaviour
         music = false;
         volumeButton.GetComponent<Image>().sprite = offSprite;
         volumeSource.volume = 0;
+    }
+    public void VolumeLevel()
+    {
+        float volume = volumeSlider.value;
+        Debug.Log(volume);
+        if (volume == 0)
+            volumeButton.GetComponent<Image>().sprite = offSprite;
+        else
+        {
+            volumeButton.GetComponent<Image>().sprite = onSprite;
+            volumeSource.volume = volume;
+        }
     }
 }
