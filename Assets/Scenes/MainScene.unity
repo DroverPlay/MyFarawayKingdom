@@ -4199,7 +4199,7 @@ GameObject:
   - component: {fileID: 246027170}
   - component: {fileID: 246027169}
   m_Layer: 5
-  m_Name: Tablet
+  m_Name: FlapyNya
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4269,26 +4269,26 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1091658886}
-        m_TargetAssemblyTypeName: FoodManager, Assembly-CSharp
-        m_MethodName: checkMoney
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 10
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1091658886}
-        m_TargetAssemblyTypeName: FoodManager, Assembly-CSharp
-        m_MethodName: addfood
-        m_Mode: 3
+      - m_Target: {fileID: 1734164640}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: Game2
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 753070188}
+        m_TargetAssemblyTypeName: NeedsManager, Assembly-CSharp
+        m_MethodName: Save
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -27208,7 +27208,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0438\u0433\u0440\u04302"
+  m_text: "\u041F\u0435\u0440\u0435\u043B\u0451\u0442 \u041D\u044F\u043D\u043A\u0435\u0442\u0430"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1432c12d37a362844a8049f91d82db4e, type: 2}
   m_sharedMaterial: {fileID: -4944206776875706652, guid: 1432c12d37a362844a8049f91d82db4e, type: 2}
@@ -29712,6 +29712,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d7cbdb34697fba45861fffe43b7e503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ContinueButton: {fileID: 0}
+  _Menu: {fileID: 0}
+  _AproveMenu: {fileID: 0}
+  _SettingsMenu: {fileID: 0}
 --- !u!114 &1734164641
 MonoBehaviour:
   m_ObjectHideFlags: 0

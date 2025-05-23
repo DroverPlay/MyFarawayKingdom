@@ -63,6 +63,7 @@ public class NeedsManager : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1.0f;
         Load();
         if (isDrop)
             StartCoroutine(DrainNeedsOverTime());
