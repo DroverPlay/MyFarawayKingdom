@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerMoving : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpforce;
     [SerializeField] private Vector3 _groundCheckOffset;
+    [SerializeField] private GameObject mobileControlPanel;
 
     private Vector3 _input;
 
@@ -20,9 +18,12 @@ public class PlayerMoving : MonoBehaviour
     private bool _isMoving;
     private bool _isJump;
     private bool _isFly;
+    private bool _isMobile;
 
     private void Start()
     {
+        _isMobile = Application.isMobilePlatform;
+        mobileControlPanel.SetActive(_isMobile);
         _rigidbody = GetComponent<Rigidbody2D>();
         _animation = GetComponentInChildren<PlayerAnimation>();
     }
@@ -32,16 +33,17 @@ public class PlayerMoving : MonoBehaviour
         Move();
         CheckGround();
 
+        if (MobileInput.JumpPressed)
+        {
+            Jump();
+        }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (Mathf.Abs(_rigidbody.velocity.y) < 0.05f)
             {
                 Jump();
             }
-            //if (_isGrounded )
-            //{
-            //    Jump();
-            //}
         }
         if (Mathf.Abs(_rigidbody.velocity.y) == 0f)
         {
@@ -59,8 +61,17 @@ public class PlayerMoving : MonoBehaviour
 
     private void Move()
     {
-        _input = new Vector2(Input.GetAxis("Horizontal"), 0);
-        transform.position += _input * _speed * Time.deltaTime;
+        if (_isMobile)
+        {
+            float moveInput = MobileInput.Horizontal;
+
+            transform.Translate(moveInput * _speed * Time.deltaTime, 0, 0);
+        }
+        else
+        {
+            _input = new Vector2(Input.GetAxis("Horizontal"), 0);
+            transform.position += _input * _speed * Time.deltaTime;
+        }
         _isMoving = _input.x != 0 ? true : false;
         
         if(_input.x != 0)
@@ -91,16 +102,4 @@ public class PlayerMoving : MonoBehaviour
             _isGrounded= false;
         }
     }
-
-    //private bool IsFlying()
-    //{
-    //    if(_rigidbody.velocity.y < 0)
-    //    {
-    //        return true;
-    //    }
-    //    else
-    //    {
-    //        return false;
-    //    }
-    //}
 }

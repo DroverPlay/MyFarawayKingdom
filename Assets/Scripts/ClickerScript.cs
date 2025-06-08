@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,30 +5,18 @@ using TMPro;
 
 public class ClickerScript : MonoBehaviour
 {
-    [Header("Основы")]
-    [SerializeField] TMP_Text money_text;
-    [SerializeField] NeedsManager need_manager;
-    [Header("Клики")]
+    [Header("Основные объекты")]
+    [SerializeField] private TMP_Text _money_text;
+    [Header("Настройки нажатий")]
     [SerializeField] private float _clickDelay = 0.1f;
 
     private int _money;
     private bool _isHolding;
     private float _lastClickTime;
 
-    //private void Start()
-    //{
-    //    need_manager.Load();
-    //    StartCoroutine(HoldClickCoroutine());
-
-    //    Image image = GetComponent<Image>();
-    //    if (image != null)
-    //        image.alphaHitTestMinimumThreshold = 0.1f;
-
-    //}
     private void Awake()
     {
-        _money = SaveData.money;
-        //need_manager.Load();
+        //_money = SaveData.money;
         StartCoroutine(HoldClickCoroutine());
 
         Image image = GetComponent<Image>();
@@ -43,15 +30,14 @@ public class ClickerScript : MonoBehaviour
             return;
 
         _lastClickTime = Time.time;
-        _money++;
+        _money = SaveData.money;
+        _money ++;
         UpdateMoneyText();
     }
-
     public void SetHold(bool isHolding)
     {
         _isHolding = isHolding;
     }
-
     private IEnumerator HoldClickCoroutine()
     {
         while (true)
@@ -65,6 +51,7 @@ public class ClickerScript : MonoBehaviour
     }
     private void UpdateMoneyText()
     {
-        money_text.text = _money.ToString();
+        _money_text.text = _money.ToString();
+        SaveData.money = _money;
     }
 }

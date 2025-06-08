@@ -3,12 +3,10 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 using System.Collections;
-using System.Linq.Expressions;
-using UnityEditor;
 
 public class NeedsManager : MonoBehaviour
 {
-    [Header("Текста")]
+    [Header("Основные объекты")]
     [SerializeField] TMP_Text moneyCountText;
     [Header("Еда")]
     [SerializeField] Image foodSlider;
@@ -28,39 +26,8 @@ public class NeedsManager : MonoBehaviour
     public int foodCount;
     public float _add;
     private bool isBuy;
-    //private void Awake()
-    //{
-    //Load();
-    //if (SaveData.foodCount > 0)
-    //{
-    //    moneyCountText.text = SaveData.money.ToString();
-    //    foodCountText.text = SaveData.foodCount.ToString();
-    //    helthCountText.text = SaveData.healthCount.ToString();
-    //    funCountText.text = SaveData.funCount.ToString();
-    //}
-    //}
-
-    //private void Start()
-    //{
-    //    if (SaveData.foodCount > 0)
-    //    {
-    //        moneyCountText.text = SaveData.money.ToString();
-
-    //        if (isFood)
-    //        {
-    //            foodCountText.text = SaveData.foodCount.ToString();
-    //        }
-    //        if (isHealth)
-    //        {
-    //            foodCountText.text = SaveData.healthCount.ToString();
-    //        }
-    //        if (isFun)
-    //        {
-    //            foodCountText.text = SaveData.healthCount.ToString();
-    //        }
-    //    }
-    //}
-
+    private int _needMoney;
+  
     private void Start()
     {
         Time.timeScale = 1.0f;
@@ -68,96 +35,74 @@ public class NeedsManager : MonoBehaviour
         if (isDrop)
             StartCoroutine(DrainNeedsOverTime());
     }
-
     private IEnumerator DrainNeedsOverTime()
     {
         while (true)
         {
             dropValue(-1);
-            Save(); // Сохраняем изменения
-            yield return new WaitForSeconds(1f); // 1 минута
+            Save();
+            yield return new WaitForSeconds(10f); 
         }
     }
     public void dropValue(int value)
     {
-        addNeeds(value, foodSlider, foodCountText);
-        addNeeds(value, helthSlider, helthCountText);
-        addNeeds(value, funSlider, funCountText);
+        addNeeds(value, foodSlider, foodCountText, 0);
+        addNeeds(value, helthSlider, helthCountText, 0);
+        addNeeds(value, funSlider, funCountText, 0);
     }
-
     public void addfood(int add)
     {
         if (isBuy)
         {
-            if (isFood)
+            if (isFood && Convert.ToInt32(foodCountText.text) < 100)
             {
-                addNeeds(add, foodSlider, foodCountText);
+                addNeeds(add, foodSlider, foodCountText,_needMoney);
+                isBuy = false;
             }
-            if (isHealth)
+            else if (isHealth && Convert.ToInt32(helthCountText.text) < 100)
             {
-                addNeeds(add, helthSlider, helthCountText);
+                addNeeds(add, helthSlider, helthCountText, _needMoney);
+                isBuy = false;
             }
-            if (isFun)
+            else if (isFun && Convert.ToInt32(funCountText.text) < 100)
             {
-                addNeeds(add, funSlider, funCountText);
+                addNeeds(add, funSlider, funCountText, _needMoney);
+                isBuy = false;
             }
+            Save();
         }
     }
-
-    public void addNeeds(int add, Image slider, TMP_Text text)
+    public void addNeeds(int add, Image slider, TMP_Text text, int needMoney)
     {
+        int currentMoney = Convert.ToInt32(moneyCountText.text);
+        currentMoney -= needMoney;
+        moneyCountText.text = currentMoney.ToString();
         _add = add / 100f;
-        //Debug.Log(_add);
         slider.fillAmount += _add;
         foodCount = Convert.ToInt32(text.text);
         foodCount += add;
         text.text = foodCount.ToString();
-        maxMinCheck(foodCountText);
-        maxMinCheck(helthCountText);
-        maxMinCheck(funCountText); 
+        MaxMinCheck(foodCountText);
+        MaxMinCheck(helthCountText);
+        MaxMinCheck(funCountText); 
         isBuy = false;
     }
-    
-
-    public void checkMoney(int needMoney)
+    public void CheckMoney(int money)
     {
-        int moneyCount = Convert.ToInt32(moneyCountText.text);
-        if (moneyCount >= needMoney)
+        int currentMoney = Convert.ToInt32(moneyCountText.text);
+        _needMoney = money;
+        if (currentMoney >= money)
         {
-            if (Convert.ToInt32(foodCountText.text) < 100)
-            {
-                IsBuy(moneyCount, needMoney);
-            }
-            if (Convert.ToInt32(helthCountText.text) < 100)
-            {
-                IsBuy(moneyCount, needMoney);
-            }
-            if (Convert.ToInt32(funCountText.text) < 100)
-            {
-                IsBuy(moneyCount, needMoney);
-            }
+            isBuy = true;
         }
-        else
-            isBuy = false;
-
-        moneyCount = Convert.ToInt32(moneyCountText.text);
-        SaveData.money = moneyCount;
-        Debug.Log(isBuy);
     }
-
-    private void IsBuy(int money, int needMoneys)
+    static private void MaxMinCheck(TMP_Text text)
     {
-        isBuy = true;
-        moneyCountText.text = Convert.ToString(money - needMoneys);
-    }
-    private void maxMinCheck(TMP_Text text)
-    {
-        if (Convert.ToInt32(text.text) > 100)
-        { text.text = 100.ToString(); }
+        if (Convert.ToInt32(text.text) >= 100)
+        { text.text = 100.ToString();}
         if (Convert.ToInt32(text.text) < 0)
         { text.text = 0.ToString(); }
     }
-
     public void Save()
     {
         SaveData.foodCount = Convert.ToInt32(foodCountText.text);
@@ -165,7 +110,6 @@ public class NeedsManager : MonoBehaviour
         SaveData.funCount = Convert.ToInt32(funCountText.text);
         SaveData.money = Convert.ToInt32(moneyCountText.text);
     }
-
     public void Load()
     {
         foodSlider.fillAmount = SaveData.foodCount / 100f;
