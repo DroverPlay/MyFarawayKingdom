@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.XR;
 
 // ќбъ€вл€ем enum дл€ типов меню
 public enum MenuType
@@ -28,16 +29,24 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private MenuItem[] menus;
     [SerializeField] private float menuTransitionDelay = 0.2f;
 
+    [SerializeField] private GameObject CloseArea;
+
     private MenuType currentOpenMenu = MenuType.None;
     private GameObject currentCategory = null;
     private bool isTransitioning = false;
+    private bool isOpen = false;
+
 
     private void Start()
     {
         Application.targetFrameRate = 60;
         CloseAllMenus();
     }
-
+    private void FixedUpdate()
+    {
+        if (isOpen && Input.GetKeyDown(KeyCode.Escape))
+            CloseAllMenus();
+    }
     // ќсновной метод переключени€ меню
     public void ToggleMenu(MenuType menuType)
     {
@@ -58,6 +67,8 @@ public class MenuManager : MonoBehaviour
         if (isTransitioning) return;
 
         StartCoroutine(SwitchToCategoryRoutine(category));
+
+        CloseArea.SetActive(true);
     }
 
     private IEnumerator SwitchMenuRoutine(MenuType newMenu)
@@ -69,6 +80,7 @@ public class MenuManager : MonoBehaviour
 
         OpenMenu(newMenu);
         isTransitioning = false;
+        CloseArea.SetActive(true);
     }
 
     private IEnumerator SwitchToCategoryRoutine(GameObject category)
@@ -92,6 +104,7 @@ public class MenuManager : MonoBehaviour
             {
                 menu.menuObject.SetActive(true);
                 currentOpenMenu = menuType;
+                isOpen = true;
                 return;
             }
         }
@@ -117,9 +130,11 @@ public class MenuManager : MonoBehaviour
 
         currentOpenMenu = MenuType.None;
         currentCategory = null;
+        isOpen = false;
+        CloseArea.SetActive(false);
     }
 
-    private void CloseAllMenus()
+    public void CloseAllMenus()
     {
         foreach (var menu in menus)
         {
@@ -133,6 +148,8 @@ public class MenuManager : MonoBehaviour
 
         currentOpenMenu = MenuType.None;
         currentCategory = null;
+        isOpen = false;
+        CloseArea.SetActive(false);
     }
 
     public void OpenFunMenu() => ToggleMenu(MenuType.Fun);

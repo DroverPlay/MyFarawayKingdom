@@ -14,7 +14,8 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         if (SaveData.gameExists)
-            _ContinueButton.SetActive(true);
+            if (_ContinueButton != null)
+                _ContinueButton.SetActive(true);
     }
     public void StartNewGame()
     {

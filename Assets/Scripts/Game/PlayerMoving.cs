@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerMoving : MonoBehaviour
 {
@@ -35,7 +36,10 @@ public class PlayerMoving : MonoBehaviour
 
         if (MobileInput.JumpPressed)
         {
-            Jump();
+            if (Mathf.Abs(_rigidbody.velocity.y) < 0.05f)
+            {
+                Jump();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -66,19 +70,24 @@ public class PlayerMoving : MonoBehaviour
             float moveInput = MobileInput.Horizontal;
 
             transform.Translate(moveInput * _speed * Time.deltaTime, 0, 0);
+
+            if (MobileInput.Horizontal == 1f)
+                _playerSprite.flipX = false;
+            if (MobileInput.Horizontal == -1f)
+                _playerSprite.flipX = true;
+
+            if( MobileInput.Horizontal != 0f)
+                _isMoving = true;
+            else
+                _isMoving = false;
         }
         else
         {
             _input = new Vector2(Input.GetAxis("Horizontal"), 0);
             transform.position += _input * _speed * Time.deltaTime;
+            _isMoving = _input.x != 0 ? true : false;
         }
-        _isMoving = _input.x != 0 ? true : false;
-        
-        if(_input.x != 0)
-        {
-            _playerSprite.flipX = _input.x > 0 ? false : true;
-        }
-        _animation.isRun = _isMoving;
+        FlipPerson();
     }
 
     private void Jump()
@@ -101,5 +110,13 @@ public class PlayerMoving : MonoBehaviour
         {
             _isGrounded= false;
         }
+    }
+    private void FlipPerson()
+    {
+        if (_input.x != 0)
+        {
+            _playerSprite.flipX = _input.x > 0 ? false : true;
+        }
+        _animation.isRun = _isMoving;
     }
 }

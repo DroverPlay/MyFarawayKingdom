@@ -14,8 +14,4 @@ public class MobileInput : MonoBehaviour
     public void OnJumpButtonDown() => JumpPressed = true;
     public void OnJumpButtonUp() => JumpPressed = false;
 
-    public void LeftButton()
-    { 
-    
-    }
 }
