@@ -1,126 +1,103 @@
 ﻿using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
-using System;
 using System.Collections;
 
 public class NeedsManager : MonoBehaviour
 {
-    [Header("Основные объекты")]
-    [SerializeField] TMP_Text moneyCountText;
-    [Header("Еда")]
-    [SerializeField] Image foodSlider;
-    [SerializeField] TMP_Text foodCountText;
-    [Header("Медицина")]
-    [SerializeField] Image helthSlider;
-    [SerializeField] TMP_Text helthCountText;
-    [Header("Веселье")]
-    [SerializeField] Image funSlider;
-    [SerializeField] TMP_Text funCountText;
-    [Header("Вид")]
-    [SerializeField] bool isFood;
-    [SerializeField] bool isHealth;
-    [SerializeField] bool isFun;
-    [SerializeField] bool isDrop;
+    [Header("Системы потребностей")]
+    [SerializeField] private FoodSystem foodSystem;
+    [SerializeField] private HealthSystem healthSystem;
+    [SerializeField] private FunSystem funSystem;
 
-    public int foodCount;
-    public float _add;
-    private bool isBuy;
-    private int _needMoney;
-  
+    [Header("Деньги")]
+    [SerializeField] private MoneyManager moneyManager;
+
+    [Header("Настройки убывания")]
+    [SerializeField] private int healthDrainRate;
+    [SerializeField] private int funDrainRate;
+
+    private float _drainSpeed;
+
     private void Start()
     {
         Time.timeScale = 1.0f;
-        Load();
-        if (isDrop)
-            StartCoroutine(DrainNeedsOverTime());
+        LoadNeeds();
+        StartCoroutine(DrainNeedsOverTime());
     }
+
     private IEnumerator DrainNeedsOverTime()
     {
         while (true)
         {
-            dropValue(-1);
-            Save();
-            yield return new WaitForSeconds(10f); 
+            healthSystem.AddValue(-healthDrainRate);
+            funSystem.AddValue(-funDrainRate);
+            yield return new WaitForSeconds(10f);
         }
     }
-    public void dropValue(int value)
+    public void BuyFood(int cost, int value)
     {
-        addNeeds(value, foodSlider, foodCountText, 0);
-        addNeeds(value, helthSlider, helthCountText, 0);
-        addNeeds(value, funSlider, funCountText, 0);
-    }
-    public void addfood(int add)
-    {
-        if (isBuy)
+        if (moneyManager == null || foodSystem == null)
         {
-            if (isFood && Convert.ToInt32(foodCountText.text) < 100)
-            {
-                addNeeds(add, foodSlider, foodCountText,_needMoney);
-                isBuy = false;
-            }
-            else if (isHealth && Convert.ToInt32(helthCountText.text) < 100)
-            {
-                addNeeds(add, helthSlider, helthCountText, _needMoney);
-                isBuy = false;
-            }
-            else if (isFun && Convert.ToInt32(funCountText.text) < 100)
-            {
-                addNeeds(add, funSlider, funCountText, _needMoney);
-                isBuy = false;
-            }
-            Save();
+            Debug.LogError("MoneyManager или FoodSystem не присвоены в инспекторе!");
+            return;
         }
-    }
-    public void addNeeds(int add, Image slider, TMP_Text text, int needMoney)
-    {
-        int currentMoney = Convert.ToInt32(moneyCountText.text);
-        currentMoney -= needMoney;
-        moneyCountText.text = currentMoney.ToString();
-        _add = add / 100f;
-        slider.fillAmount += _add;
-        foodCount = Convert.ToInt32(text.text);
-        foodCount += add;
-        text.text = foodCount.ToString();
-        MaxMinCheck(foodCountText);
-        MaxMinCheck(helthCountText);
-        MaxMinCheck(funCountText); 
-        isBuy = false;
-    }
-    public void CheckMoney(int money)
-    {
-        int currentMoney = Convert.ToInt32(moneyCountText.text);
-        _needMoney = money;
-        if (currentMoney >= money)
+
+        if (moneyManager.TrySpendMoney(cost))
         {
-            isBuy = true;
+            foodSystem.AddValue(value);
+            SaveNeeds();
         }
     }
-    static private void MaxMinCheck(TMP_Text text)
+    public void BuyHealth(int cost, int value)
     {
-        if (Convert.ToInt32(text.text) >= 100)
-        { text.text = 100.ToString();}
-        if (Convert.ToInt32(text.text) < 0)
-        { text.text = 0.ToString(); }
+        if (moneyManager == null || healthSystem == null)
+        {
+            Debug.LogError("MoneyManager или HealthSystem не присвоены!");
+            return;
+        }
+
+        if (moneyManager.TrySpendMoney(cost))
+        {
+            healthSystem.AddValue(value);
+            SaveNeeds();
+        }
     }
-    public void Save()
+
+    public void BuyFun(int cost, int value)
     {
-        SaveData.foodCount = Convert.ToInt32(foodCountText.text);
-        SaveData.healthCount = Convert.ToInt32(helthCountText.text);
-        SaveData.funCount = Convert.ToInt32(funCountText.text);
-        SaveData.money = Convert.ToInt32(moneyCountText.text);
+        if (moneyManager == null || funSystem == null)
+        {
+            Debug.LogError("MoneyManager или FunSystem не присвоены!");
+            return;
+        }
+
+        if (moneyManager.TrySpendMoney(cost))
+        {
+            funSystem.AddValue(value);
+            SaveNeeds();
+        }
     }
-    public void Load()
+
+    private void LoadNeeds()
     {
-        foodSlider.fillAmount = SaveData.foodCount / 100f;
-        foodCountText.text = SaveData.foodCount.ToString();
+        foodSystem.AddValue(SaveData.foodCount);
+        healthSystem.AddValue(SaveData.healthCount);
+        funSystem.AddValue(SaveData.funCount);
+        moneyManager.AddMoney(SaveData.money);
 
-        helthSlider.fillAmount = SaveData.healthCount / 100f;
-        helthCountText.text = SaveData.healthCount.ToString();
+        funDrainRate = SaveData.dropFun;
+        healthDrainRate = SaveData.dropHelth;
 
-        funSlider.fillAmount = SaveData.funCount / 100f;
-        funCountText.text = SaveData.funCount.ToString();
-
-        moneyCountText.text = SaveData.money.ToString();
     }
+
+    private void SaveNeeds()
+    {
+        SaveData.foodCount = foodSystem.GetCurrentValue();
+        SaveData.healthCount = healthSystem.GetCurrentValue();
+        SaveData.funCount = funSystem.GetCurrentValue();
+        SaveData.money = moneyManager.GetCurrentMoney();
+
+        SaveData.dropFun = funDrainRate;
+        SaveData.money = healthDrainRate;
+    }
+
 }

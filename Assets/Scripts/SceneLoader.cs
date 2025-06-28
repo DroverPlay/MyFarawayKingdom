@@ -26,13 +26,20 @@ public class MainMenu : MonoBehaviour
         }
         else
         {
+            Debug.Log("Новая игра");
             SceneManager.LoadScene("MainScene");
             SaveData.multipleMoney = 1;
-            SaveData.foodCount = 20;
-            SaveData.funCount = 20;
-            SaveData.healthCount = 20;
-            SaveData.money = 100;
+            SaveData.foodCount = 22;
+            SaveData.funCount = 22;
+            SaveData.healthCount = 22;
+            SaveData.money = 200;
             SaveData.gameExists = true;
+            SaveData.dropFood = 2;
+            SaveData.dropHelth = 2;
+            SaveData.dropFun = 2;
+            SaveData.drainFoodSpeedCount = 15;
+            SaveData.CostFoodSpeedUpgrade = 100;
+            SaveData.CostFoodRateUpgrade = 1000;
         }
     }
     public void LoadScene(string sceneName)

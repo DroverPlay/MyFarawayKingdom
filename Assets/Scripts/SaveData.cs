@@ -11,6 +11,16 @@ public class SaveData
 
     private static bool saveGameExists;
 
+    private static int saveDropHelth;
+    private static int saveDropFood;
+    private static int saveDropFun;
+
+    private static float saveFoodDrainSpeed;
+
+    //Сохранение стоимости улучшений
+    private static int saveCostFoodSpeedUpgrade;
+    private static int saveCostFoodRateUpgrade;
+
     public static int money
     {
         get { return saveMoney; }
@@ -45,5 +55,35 @@ public class SaveData
     {
         get { return saveGameExists; }
         set { saveGameExists = value; }
+    }
+    public static int dropHelth
+    {
+        get { return saveDropHelth; }
+        set { saveDropHelth = value; }
+    }
+    public static int dropFun
+    {
+        get { return saveDropFun; }
+        set { saveDropFun = value; }
+    }
+    public static int dropFood
+    {
+        get { return saveDropFood; }
+        set { saveDropFood = value; }
+    }
+    public static float drainFoodSpeedCount
+    {
+        get { return saveFoodDrainSpeed; }
+        set { saveFoodDrainSpeed = value; }
+    }
+    public static int CostFoodSpeedUpgrade
+    {
+        get { return saveCostFoodSpeedUpgrade; }
+        set { saveCostFoodSpeedUpgrade = value; }
+    }
+    public static int CostFoodRateUpgrade
+    {
+        get { return saveCostFoodRateUpgrade; }
+        set { saveCostFoodRateUpgrade = value; }
     }
 }
