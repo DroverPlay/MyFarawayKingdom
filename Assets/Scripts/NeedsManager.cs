@@ -11,28 +11,13 @@ public class NeedsManager : MonoBehaviour
     [Header("Деньги")]
     [SerializeField] private MoneyManager moneyManager;
 
-    [Header("Настройки убывания")]
-    [SerializeField] private int healthDrainRate;
-    [SerializeField] private int funDrainRate;
-
-    private float _drainSpeed;
 
     private void Start()
     {
         Time.timeScale = 1.0f;
         LoadNeeds();
-        StartCoroutine(DrainNeedsOverTime());
     }
 
-    private IEnumerator DrainNeedsOverTime()
-    {
-        while (true)
-        {
-            healthSystem.AddValue(-healthDrainRate);
-            funSystem.AddValue(-funDrainRate);
-            yield return new WaitForSeconds(10f);
-        }
-    }
     public void BuyFood(int cost, int value)
     {
         if (moneyManager == null || foodSystem == null)
@@ -83,10 +68,6 @@ public class NeedsManager : MonoBehaviour
         healthSystem.AddValue(SaveData.healthCount);
         funSystem.AddValue(SaveData.funCount);
         moneyManager.AddMoney(SaveData.money);
-
-        funDrainRate = SaveData.dropFun;
-        healthDrainRate = SaveData.dropHelth;
-
     }
 
     private void SaveNeeds()
@@ -95,9 +76,6 @@ public class NeedsManager : MonoBehaviour
         SaveData.healthCount = healthSystem.GetCurrentValue();
         SaveData.funCount = funSystem.GetCurrentValue();
         SaveData.money = moneyManager.GetCurrentMoney();
-
-        SaveData.dropFun = funDrainRate;
-        SaveData.money = healthDrainRate;
     }
 
 }

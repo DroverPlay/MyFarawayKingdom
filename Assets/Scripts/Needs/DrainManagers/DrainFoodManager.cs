@@ -1,100 +1,143 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System;
+using UnityEngine.UI;
+
+[System.Serializable]
+public class UpgradeSettings
+{
+    public int minValue;
+    public int maxValue;
+    public int baseCost;
+    public float costMultiplier = 1.2f;
+}
 
 public class DrainFoodManager : MonoBehaviour
 {
-    [SerializeField] private FoodSystem _foodSystem;
+    [Header("Systems")]
+    [SerializeField] private FoodSystem foodSystem;
     [SerializeField] private MoneyManager moneyManager;
-    [SerializeField] private float _drainSpeed;
-    [SerializeField] private TMP_Text _costUpgradeSpeed;
-    [SerializeField] private TMP_Text _costUpgradeRate;
 
+    [Header("Drain Settings")]
+    [SerializeField] private float drainSpeed;
+    [SerializeField] private int foodDrainRate;
 
-    private int foodDrainRate;
-    private int _currentCostSpeedUpgrade;
-    private int _currentCostRateUpgrade;
+    [Header("UI Elements")]
+    [SerializeField] private TMP_Text costUpgradeSpeedText;
+    [SerializeField] private TMP_Text costUpgradeRateText;
+    [SerializeField] private Button speedUpgradeButton;
+    [SerializeField] private Button rateUpgradeButton;
+
+    [Header("Upgrade Settings")]
+    [SerializeField] private UpgradeSettings speedSettings = new UpgradeSettings { minValue = 14, maxValue = 29 };
+    [SerializeField] private UpgradeSettings rateSettings = new UpgradeSettings { minValue = 1, maxValue = 3 };
+
+    private Coroutine drainCoroutine;
 
     private void Start()
     {
+        LoadData();
+        InitializeUI();
+        StartDraining();
+    }
+
+    private void LoadData()
+    {
         foodDrainRate = SaveData.dropFood;
-        _drainSpeed = SaveData.drainFoodSpeedCount;
+        drainSpeed = SaveData.drainFoodSpeedCount;
+    }
 
-        _currentCostSpeedUpgrade = SaveData.CostFoodSpeedUpgrade;
-        _currentCostRateUpgrade = SaveData.CostFoodRateUpgrade;
+    private void InitializeUI()
+    {
+        UpdateButtonsInteractivity();
+        UpdateCostTexts();
+    }
 
-        Debug.Log(_drainSpeed + " Скорость уменьшения");
-        Debug.Log($"Стартовые значения: drainSpeed={_drainSpeed}, costRate={_currentCostSpeedUpgrade}");
+    private void StartDraining()
+    {
+        if (drainCoroutine != null)
+            StopCoroutine(drainCoroutine);
 
-        UIUpdate();
-        StartCoroutine(DrainNeedsOverTime());
+        drainCoroutine = StartCoroutine(DrainNeedsOverTime());
     }
 
     private IEnumerator DrainNeedsOverTime()
     {
         while (true)
         {
-            _foodSystem.AddValue(-foodDrainRate);
-            yield return new WaitForSeconds(_drainSpeed);
+            foodSystem.AddValue(-foodDrainRate);
+            yield return new WaitForSeconds(drainSpeed);
         }
     }
 
-
-    public void buyUpgradeSpeed()
+    public void BuyUpgradeSpeed()
     {
-        int cost = Mathf.FloorToInt(_currentCostSpeedUpgrade);
-        Debug.Log($"Деньги: {moneyManager.GetCurrentMoney()}, Нужно: {cost}");
+        if (!CanUpgrade(speedSettings, drainSpeed)) return;
 
-        if (moneyManager.TrySpendMoney(cost))
-        {
-            UpgradeSpeedDrain();
-            UIUpdate();
-        }
-        else
-            Debug.Log($"Не купил. Деньги: {moneyManager.GetCurrentMoney()}, Нужно: {cost}");
+        int cost = CalculateUpgradeCost(speedSettings);
+        if (!moneyManager.TrySpendMoney(cost)) return;
+
+        drainSpeed++;
+        SaveData.drainFoodSpeedCount = drainSpeed;
+        SaveData.CostFoodSpeedUpgrade = CalculateNextCost(speedSettings);
+
+        ApplyUpgrade();
     }
 
-    public void buyUpgradeDrain()
+    public void BuyUpgradeRate()
     {
-        int cost = Mathf.FloorToInt(_currentCostRateUpgrade);
+        if (!CanUpgrade(rateSettings, foodDrainRate)) return;
 
-        if (moneyManager.TrySpendMoney(cost))
-        {
-            UpgradeDrainRate();
-            UIUpdate();
-        }
-        else
-            Debug.Log("Не купил");
+        int cost = CalculateUpgradeCost(rateSettings);
+        if (!moneyManager.TrySpendMoney(cost)) return;
+
+        foodDrainRate--;
+        SaveData.dropFood = foodDrainRate;
+        SaveData.CostFoodRateUpgrade = CalculateNextCost(rateSettings);
+
+        ApplyUpgrade();
     }
 
-    public void UpgradeSpeedDrain()
+    private bool CanUpgrade(UpgradeSettings settings, float currentValue)
     {
-        SaveData.drainFoodSpeedCount++;
-        _drainSpeed = SaveData.drainFoodSpeedCount;
-        SaveData.CostFoodSpeedUpgrade = (_currentCostSpeedUpgrade * 120) / 100;
-        _currentCostSpeedUpgrade = SaveData.CostFoodSpeedUpgrade;
-
-        Debug.Log($"Новая стоимость: {_currentCostRateUpgrade}");
-        Debug.Log(_drainSpeed + " Скорость уменьшения, прокачана и теперь стоит " + _currentCostSpeedUpgrade);
-
-    }
-    public void UpgradeDrainRate()
-    {
-        SaveData.dropFood--;
-        foodDrainRate = SaveData.dropFood;
-        SaveData.CostFoodRateUpgrade = (_currentCostRateUpgrade * 120) / 100;
-        _currentCostRateUpgrade = SaveData.CostFoodRateUpgrade;
-
-        Debug.Log("Теперь за раз уменьшается на " + foodDrainRate);
+        return currentValue > settings.minValue && currentValue < settings.maxValue;
     }
 
-    private void UIUpdate()
+    private int CalculateUpgradeCost(UpgradeSettings settings)
     {
-        _costUpgradeRate.text = SaveData.CostFoodRateUpgrade.ToString();
-        _costUpgradeSpeed.text = SaveData.CostFoodSpeedUpgrade.ToString();
-        _currentCostRateUpgrade = SaveData.CostFoodRateUpgrade;
-        _currentCostSpeedUpgrade = SaveData.CostFoodSpeedUpgrade;
+        return Mathf.FloorToInt(settings.baseCost * Mathf.Pow(settings.costMultiplier, GetUpgradeCount(settings)));
+    }
+
+    private int CalculateNextCost(UpgradeSettings settings)
+    {
+        return Mathf.FloorToInt(settings.baseCost * Mathf.Pow(settings.costMultiplier, GetUpgradeCount(settings) + 1));
+    }
+
+    private int GetUpgradeCount(UpgradeSettings settings)
+    {
+        return settings == speedSettings ?
+            (int)(drainSpeed - speedSettings.minValue) :
+            (int)(rateSettings.maxValue - foodDrainRate);
+    }
+
+    private void ApplyUpgrade()
+    {
+        UpdateButtonsInteractivity();
+        UpdateCostTexts();
+    }
+
+    private void UpdateButtonsInteractivity()
+    {
+        speedUpgradeButton.interactable = CanUpgrade(speedSettings, drainSpeed);
+        rateUpgradeButton.interactable = CanUpgrade(rateSettings, foodDrainRate);
+
+        speedUpgradeButton.image.color = speedUpgradeButton.interactable ? Color.white : Color.gray;
+        rateUpgradeButton.image.color = rateUpgradeButton.interactable ? Color.white : Color.gray;
+    }
+
+    private void UpdateCostTexts()
+    {
+        costUpgradeSpeedText.text = CalculateUpgradeCost(speedSettings).ToString();
+        costUpgradeRateText.text = CalculateUpgradeCost(rateSettings).ToString();
     }
 }

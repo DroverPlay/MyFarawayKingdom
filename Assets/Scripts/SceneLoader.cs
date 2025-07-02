@@ -32,14 +32,20 @@ public class MainMenu : MonoBehaviour
             SaveData.foodCount = 22;
             SaveData.funCount = 22;
             SaveData.healthCount = 22;
-            SaveData.money = 200;
+            SaveData.money = 20000;
             SaveData.gameExists = true;
             SaveData.dropFood = 2;
-            SaveData.dropHelth = 2;
+            SaveData.dropHealth = 2;
             SaveData.dropFun = 2;
             SaveData.drainFoodSpeedCount = 15;
             SaveData.CostFoodSpeedUpgrade = 100;
             SaveData.CostFoodRateUpgrade = 1000;
+            SaveData.drainFunSpeedCount = 15;
+            SaveData.CostFunSpeedUpgrade = 100;
+            SaveData.CostFunRateUpgrade = 1000;
+            SaveData.drainHealthSpeedCount = 15;
+            SaveData.CostHealthSpeedUpgrade = 100;
+            SaveData.CostHealthRateUpgrade = 1000;
         }
     }
     public void LoadScene(string sceneName)

@@ -11,15 +11,23 @@ public class SaveData
 
     private static bool saveGameExists;
 
-    private static int saveDropHelth;
+    private static int saveDropHealth;
     private static int saveDropFood;
     private static int saveDropFun;
 
     private static float saveFoodDrainSpeed;
+    private static float saveFunDrainSpeed;
+    private static float saveHealthDrainSpeed;
 
     //Сохранение стоимости улучшений
     private static int saveCostFoodSpeedUpgrade;
     private static int saveCostFoodRateUpgrade;
+
+    private static int saveCostFunSpeedUpgrade;
+    private static int saveCostFunRateUpgrade;
+
+    private static int saveCostHealthSpeedUpgrade;
+    private static int saveCostHealthRateUpgrade;
 
     public static int money
     {
@@ -56,10 +64,10 @@ public class SaveData
         get { return saveGameExists; }
         set { saveGameExists = value; }
     }
-    public static int dropHelth
+    public static int dropHealth
     {
-        get { return saveDropHelth; }
-        set { saveDropHelth = value; }
+        get { return saveDropHealth; }
+        set { saveDropHealth = value; }
     }
     public static int dropFun
     {
@@ -71,6 +79,7 @@ public class SaveData
         get { return saveDropFood; }
         set { saveDropFood = value; }
     }
+    //Еда
     public static float drainFoodSpeedCount
     {
         get { return saveFoodDrainSpeed; }
@@ -85,5 +94,37 @@ public class SaveData
     {
         get { return saveCostFoodRateUpgrade; }
         set { saveCostFoodRateUpgrade = value; }
+    }
+    //Настроение
+    public static float drainFunSpeedCount
+    {
+        get { return saveFunDrainSpeed; }
+        set { saveFunDrainSpeed = value; }
+    }
+    public static int CostFunSpeedUpgrade
+    {
+        get { return saveCostFunSpeedUpgrade; }
+        set { saveCostFunSpeedUpgrade = value; }
+    }
+    public static int CostFunRateUpgrade
+    {
+        get { return saveCostFunRateUpgrade; }
+        set { saveCostFunRateUpgrade = value; }
+    }
+    //Здоровье
+    public static float drainHealthSpeedCount
+    {
+        get { return saveHealthDrainSpeed; }
+        set { saveHealthDrainSpeed = value; }
+    }
+    public static int CostHealthSpeedUpgrade
+    {
+        get { return saveCostHealthSpeedUpgrade; }
+        set { saveCostHealthSpeedUpgrade = value; }
+    }
+    public static int CostHealthRateUpgrade
+    {
+        get { return saveCostHealthRateUpgrade; }
+        set { saveCostHealthRateUpgrade = value; }
     }
 }
