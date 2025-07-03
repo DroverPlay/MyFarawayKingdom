@@ -34,7 +34,7 @@ public class MoneyManager : MonoBehaviour
             moneyCountText.text = currentMoney.ToString();
         else
             Debug.LogError("moneyCountText не присвоен!");
-        SaveData.money = currentMoney;
+        SaveManager.Current.money = currentMoney;
     }
 
     public int GetCurrentMoney() => currentMoney;

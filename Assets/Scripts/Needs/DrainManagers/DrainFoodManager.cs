@@ -43,8 +43,8 @@ public class DrainFoodManager : MonoBehaviour
 
     private void LoadData()
     {
-        foodDrainRate = SaveData.dropFood;
-        drainSpeed = SaveData.drainFoodSpeedCount;
+        foodDrainRate = SaveManager.Current.dropFood;
+        drainSpeed = SaveManager.Current.foodDrainSpeed;
     }
 
     private void InitializeUI()
@@ -66,6 +66,7 @@ public class DrainFoodManager : MonoBehaviour
         while (true)
         {
             foodSystem.AddValue(-foodDrainRate);
+            Debug.Log("Уменьшено");
             yield return new WaitForSeconds(drainSpeed);
         }
     }
@@ -78,8 +79,8 @@ public class DrainFoodManager : MonoBehaviour
         if (!moneyManager.TrySpendMoney(cost)) return;
 
         drainSpeed++;
-        SaveData.drainFoodSpeedCount = drainSpeed;
-        SaveData.CostFoodSpeedUpgrade = CalculateNextCost(speedSettings);
+        SaveManager.Current.foodDrainSpeed = drainSpeed;
+        SaveManager.Current.costFoodSpeedUpgrade = CalculateNextCost(speedSettings);
 
         ApplyUpgrade();
     }
@@ -92,8 +93,8 @@ public class DrainFoodManager : MonoBehaviour
         if (!moneyManager.TrySpendMoney(cost)) return;
 
         foodDrainRate--;
-        SaveData.dropFood = foodDrainRate;
-        SaveData.CostFoodRateUpgrade = CalculateNextCost(rateSettings);
+        SaveManager.Current.dropFood = foodDrainRate;
+        SaveManager.Current.costFoodRateUpgrade = CalculateNextCost(rateSettings);
 
         ApplyUpgrade();
     }

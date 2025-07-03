@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 042b9b53315557b4f999400680bf0e40, type: 3}
+  m_Name: Food
+  m_EditorClassIdentifier: 
+  products:
+  - name: "\u042F\u0431\u043B\u043E\u043A\u043E (+1)"
+    price: 10
+    icon: {fileID: 21300000, guid: 2f3ed3e59911eef4e9d7e92692f3e6c1, type: 3}
+    value: 1
+  - name: "\u041C\u043E\u0440\u043E\u0436\u0435\u043D\u043E\u0435 (+3)"
+    price: 20
+    icon: {fileID: 21300000, guid: 55c136f4f15421a4599f35b9a8d9593d, type: 3}
+    value: 3
+  - name: "\u041C\u0438\u043B\u043A\u0448\u0435\u0439\u043A (+4)"
+    price: 25
+    icon: {fileID: 21300000, guid: cb02c024ee885434ab6deb650ffc2b62, type: 3}
+    value: 4
+  - name: "\u041A\u0430\u0440\u0442\u043E\u0448\u043A\u0430 \u0444\u0440\u0438 (+6)"
+    price: 35
+    icon: {fileID: 21300000, guid: 9d051448d88410e41b2469743a86845a, type: 3}
+    value: 6
+  - name: "\u0425\u043E\u0442-\u0434\u043E\u0433 (+7)"
+    price: 40
+    icon: {fileID: 21300000, guid: 91533045de95399488ce9f35b1849fc8, type: 3}
+    value: 7
+  - name: "\u0411\u0443\u0440\u0433\u0435\u0440 (+9)"
+    price: 50
+    icon: {fileID: 21300000, guid: 6b0bfcc45b22ff84c81743dad80f585b, type: 3}
+    value: 9
+  - name: "\u041F\u0438\u0446\u0446\u0430 (+11)"
+    price: 60
+    icon: {fileID: 21300000, guid: ad6ff1f254894b043bac955693e7d842, type: 3}
+    value: 11
+  - name: "\u041F\u0438\u0440\u043E\u0433 (+13)"
+    price: 70
+    icon: {fileID: 21300000, guid: a6283b9ed3b36744f88c0b5c31e5475e, type: 3}
+    value: 13
+  - name: "\u041E\u0431\u0435\u0434 (+15)"
+    price: 80
+    icon: {fileID: 21300000, guid: 64d74827b0222cf4196c89466bc97f55, type: 3}
+    value: 15

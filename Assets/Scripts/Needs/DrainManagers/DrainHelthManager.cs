@@ -24,11 +24,11 @@ public class DrainHelthManager : MonoBehaviour
 
     private void Start()
     {
-        _healthDrainRate = SaveData.dropHealth;
-        _drainSpeed = SaveData.drainHealthSpeedCount;
+        _healthDrainRate = SaveManager.Current.dropHealth;
+        _drainSpeed = SaveManager.Current.healthDrainSpeed;
 
-        _currentCostSpeedUpgrade = SaveData.CostHealthSpeedUpgrade;
-        _currentCostRateUpgrade = SaveData.CostHealthRateUpgrade;
+        _currentCostSpeedUpgrade = SaveManager.Current.costHealthSpeedUpgrade;
+        _currentCostRateUpgrade = SaveManager.Current.costHealthRateUpgrade;
 
         Debug.Log(_drainSpeed + " Скорость уменьшения");
         Debug.Log($"Стартовые значения: drainSpeed={_drainSpeed}, costRate={_currentCostSpeedUpgrade}");
@@ -83,10 +83,10 @@ public class DrainHelthManager : MonoBehaviour
     //Улучшение которое увеличивает время на уменьшение количества еды за раз 
     public void UpgradeSpeedDrain()
     {
-        SaveData.drainHealthSpeedCount++;
-        _drainSpeed = SaveData.drainHealthSpeedCount;
-        SaveData.CostHealthSpeedUpgrade = (_currentCostSpeedUpgrade * 120) / 100;
-        _currentCostSpeedUpgrade = SaveData.CostHealthSpeedUpgrade;
+        SaveManager.Current.healthDrainSpeed++;
+        _drainSpeed = SaveManager.Current.healthDrainSpeed;
+        SaveManager.Current.costHealthSpeedUpgrade = (_currentCostSpeedUpgrade * 120) / 100;
+        _currentCostSpeedUpgrade = SaveManager.Current.costHealthSpeedUpgrade;
 
         Debug.Log($"Новая стоимость: {_currentCostRateUpgrade}");
         Debug.Log(_drainSpeed + " Скорость уменьшения, прокачана и теперь стоит " + _currentCostSpeedUpgrade);
@@ -94,20 +94,20 @@ public class DrainHelthManager : MonoBehaviour
     }
     public void UpgradeDrainRate()
     {
-        SaveData.dropHealth--;
-        _healthDrainRate = SaveData.dropHealth;
-        SaveData.CostHealthRateUpgrade = (_currentCostRateUpgrade * 120) / 100;
-        _currentCostRateUpgrade = SaveData.CostHealthRateUpgrade;
+        SaveManager.Current.dropHealth--;
+        _healthDrainRate = SaveManager.Current.dropHealth;
+        SaveManager.Current.costHealthRateUpgrade = (_currentCostRateUpgrade * 120) / 100;
+        _currentCostRateUpgrade = SaveManager.Current.costHealthRateUpgrade;
 
         Debug.Log("Теперь за раз уменьшается на " + _healthDrainRate);
     }
 
     private void UIUpdate()
     {
-        _costUpgradeRate.text = SaveData.CostHealthRateUpgrade.ToString();
-        _costUpgradeSpeed.text = SaveData.CostHealthSpeedUpgrade.ToString();
-        _currentCostRateUpgrade = SaveData.CostHealthRateUpgrade;
-        _currentCostSpeedUpgrade = SaveData.CostHealthSpeedUpgrade;
+        _costUpgradeRate.text = SaveManager.Current.costHealthRateUpgrade.ToString();
+        _costUpgradeSpeed.text = SaveManager.Current.costHealthSpeedUpgrade.ToString();
+        _currentCostRateUpgrade = SaveManager.Current.costHealthRateUpgrade;
+        _currentCostSpeedUpgrade = SaveManager.Current.costHealthSpeedUpgrade;
     }
 
     private void MinMaxCheck(int min, int max, int current, int var)

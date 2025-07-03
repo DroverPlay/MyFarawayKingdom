@@ -20,11 +20,14 @@ public class NeedsManager : MonoBehaviour
 
     public void BuyFood(int cost, int value)
     {
+        int current = foodSystem.GetCurrentValue();
+        Debug.Log(current);
         if (moneyManager == null || foodSystem == null)
         {
             Debug.LogError("MoneyManager или FoodSystem не присвоены в инспекторе!");
             return;
         }
+        if (current >= 100) return;
 
         if (moneyManager.TrySpendMoney(cost))
         {
@@ -64,18 +67,18 @@ public class NeedsManager : MonoBehaviour
 
     private void LoadNeeds()
     {
-        foodSystem.AddValue(SaveData.foodCount);
-        healthSystem.AddValue(SaveData.healthCount);
-        funSystem.AddValue(SaveData.funCount);
-        moneyManager.AddMoney(SaveData.money);
+        foodSystem.AddValue(SaveManager.Current.foodCount);
+        healthSystem.AddValue(SaveManager.Current.healthCount);
+        funSystem.AddValue(SaveManager.Current.funCount);
+        moneyManager.AddMoney(SaveManager.Current.money);
     }
 
     private void SaveNeeds()
     {
-        SaveData.foodCount = foodSystem.GetCurrentValue();
-        SaveData.healthCount = healthSystem.GetCurrentValue();
-        SaveData.funCount = funSystem.GetCurrentValue();
-        SaveData.money = moneyManager.GetCurrentMoney();
+        SaveManager.Current.foodCount = foodSystem.GetCurrentValue();
+        SaveManager.Current.healthCount = healthSystem.GetCurrentValue();
+        SaveManager.Current.funCount = funSystem.GetCurrentValue();
+        SaveManager.Current.money = moneyManager.GetCurrentMoney();
     }
 
 }

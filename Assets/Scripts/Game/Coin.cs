@@ -13,6 +13,6 @@ public class Coin : MonoBehaviour
 
     private void GiveMoney(int money)
     {
-        SaveData.money += money;
+        SaveManager.Current.money += money;
     }
 }

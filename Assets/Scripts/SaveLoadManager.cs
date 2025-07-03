@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-//public static class SaveData
+//public static class SaveManager.Current
 //{
 //    public static int foodCount;
 //    public static int healthCount;

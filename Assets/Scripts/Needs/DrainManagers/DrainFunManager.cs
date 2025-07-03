@@ -23,11 +23,11 @@ public class DrainFunManager : MonoBehaviour
 
     private void Start()
     {
-        _funDrainRate = SaveData.dropFun;
-        _drainSpeed = SaveData.drainFunSpeedCount;
+        _funDrainRate = SaveManager.Current.dropFun;
+        _drainSpeed = SaveManager.Current.funDrainSpeed;
 
-        _currentCostSpeedUpgrade = SaveData.CostFunSpeedUpgrade;
-        _currentCostRateUpgrade = SaveData.CostFunRateUpgrade;
+        _currentCostSpeedUpgrade = SaveManager.Current.costFunSpeedUpgrade;
+        _currentCostRateUpgrade = SaveManager.Current.costFunRateUpgrade;
 
         Debug.Log(_drainSpeed + " Скорость уменьшения");
         Debug.Log($"Стартовые значения: drainSpeed={_drainSpeed}, costRate={_currentCostSpeedUpgrade}");
@@ -82,10 +82,10 @@ public class DrainFunManager : MonoBehaviour
     //Улучшение которое увеличивает время на уменьшение количества еды за раз 
     public void UpgradeSpeedDrain()
     {
-        SaveData.drainFunSpeedCount++;
-        _drainSpeed = SaveData.drainFunSpeedCount;
-        SaveData.CostFunSpeedUpgrade = (_currentCostSpeedUpgrade * 120) / 100;
-        _currentCostSpeedUpgrade = SaveData.CostFunSpeedUpgrade;
+        SaveManager.Current.funDrainSpeed++;
+        _drainSpeed = SaveManager.Current.funDrainSpeed;
+        SaveManager.Current.costFunSpeedUpgrade = (_currentCostSpeedUpgrade * 120) / 100;
+        _currentCostSpeedUpgrade = SaveManager.Current.costFunSpeedUpgrade;
 
         Debug.Log($"Новая стоимость: {_currentCostRateUpgrade}");
         Debug.Log(_drainSpeed + " Скорость уменьшения, прокачана и теперь стоит " + _currentCostSpeedUpgrade);
@@ -93,20 +93,20 @@ public class DrainFunManager : MonoBehaviour
     }
     public void UpgradeDrainRate()
     {
-        SaveData.dropFun--;
-        _funDrainRate = SaveData.dropFun;
-        SaveData.CostFunRateUpgrade = (_currentCostRateUpgrade * 120) / 100;
-        _currentCostRateUpgrade = SaveData.CostFunRateUpgrade;
+        SaveManager.Current.dropFun--;
+        _funDrainRate = SaveManager.Current.dropFun;
+        SaveManager.Current.costFunRateUpgrade = (_currentCostRateUpgrade * 120) / 100;
+        _currentCostRateUpgrade = SaveManager.Current.costFunRateUpgrade;
 
         Debug.Log("Теперь за раз уменьшается на " + _funDrainRate);
     }
 
     private void UIUpdate()
     {
-        _costUpgradeRate.text = SaveData.CostFunRateUpgrade.ToString();
-        _costUpgradeSpeed.text = SaveData.CostFunSpeedUpgrade.ToString();
-        _currentCostRateUpgrade = SaveData.CostFunRateUpgrade;
-        _currentCostSpeedUpgrade = SaveData.CostFunSpeedUpgrade;
+        _costUpgradeRate.text = SaveManager.Current.costFunRateUpgrade.ToString();
+        _costUpgradeSpeed.text = SaveManager.Current.costFunSpeedUpgrade.ToString();
+        _currentCostRateUpgrade = SaveManager.Current.costFunRateUpgrade;
+        _currentCostSpeedUpgrade = SaveManager.Current.costFunSpeedUpgrade;
     }
 
     private void MinMaxCheck(int min, int max, int current, int var)

@@ -16,7 +16,7 @@ public class ClickerScript : MonoBehaviour
 
     private void Awake()
     {
-        //_money = SaveData.money;
+        //_money = SaveManager.Current.money;
         StartCoroutine(HoldClickCoroutine());
 
         Image image = GetComponent<Image>();
@@ -30,7 +30,7 @@ public class ClickerScript : MonoBehaviour
             return;
 
         _lastClickTime = Time.time;
-        _money = SaveData.money;
+        _money = SaveManager.Current.money;
         _money ++;
         UpdateMoneyText();
     }
@@ -52,6 +52,6 @@ public class ClickerScript : MonoBehaviour
     private void UpdateMoneyText()
     {
         _money_text.text = _money.ToString();
-        SaveData.money = _money;
+        SaveManager.Current.money = _money;
     }
 }

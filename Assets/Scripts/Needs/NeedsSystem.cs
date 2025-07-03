@@ -13,6 +13,7 @@ public class NeedsSystem : MonoBehaviour
     public virtual void AddValue(int value)
     {
         currentValue += value;
+        if (currentValue > 100) return;
         currentValue = Mathf.Clamp(currentValue, 0, 100);
         UpdateUI();
     }

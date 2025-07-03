@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 042b9b53315557b4f999400680bf0e40, type: 3}
+  m_Name: Fun
+  m_EditorClassIdentifier: 
+  products:
+  - name: "\u041F\u043E\u0433\u0443\u043B\u044F\u0442\u044C \u043D\u0430 \u0443\u043B\u0438\u0446\u0435
+      (+1)"
+    price: 0
+    icon: {fileID: 21300000, guid: 0499f793d9f65374eb4be8dbf2304d5c, type: 3}
+    value: 1
+  - name: "\u0421\u0445\u043E\u0434\u0438\u0442\u044C \u0432 \u043A\u0438\u043D\u043E
+      (+5)"
+    price: 15
+    icon: {fileID: 21300000, guid: 983881b3fdf61334391764767972d2a3, type: 3}
+    value: 5
+  - name: "\u0421\u0445\u043E\u0434\u0438\u0442\u044C \u043D\u0430 \u043A\u043E\u043D\u0446\u0435\u0440\u0442
+      (+7)"
+    price: 25
+    icon: {fileID: 21300000, guid: e7c96a86ed08cd849b148e726e24dca5, type: 3}
+    value: 7
+  - name: "\u0412\u0441\u0442\u0440\u0435\u0442\u0438\u0442\u044C\u0441\u044F \u0441
+      \u0434\u0440\u0443\u0437\u044C\u044F\u043C\u0438 (+10)"
+    price: 30
+    icon: {fileID: 21300000, guid: ccef98ce080a1914987cb472135b20ad, type: 3}
+    value: 10
+  - name: "\u041F\u043E\u0439\u0442\u0438 \u043D\u0430 \u0432\u044B\u0441\u0442\u0430\u0432\u043A\u0443
+      (+15)"
+    price: 40
+    icon: {fileID: 21300000, guid: 71d535405d163a443aff2836aca881cb, type: 3}
+    value: 15

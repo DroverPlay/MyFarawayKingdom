@@ -7,6 +7,7 @@ TagManager:
   - BG_Music
   - onOffMusic
   - Ground
+  - MoneyManager
   layers:
   - Default
   - TransparentFX

@@ -13,13 +13,13 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
-        if (SaveData.gameExists)
+        if (SaveManager.Current.gameExists)
             if (_ContinueButton != null)
                 _ContinueButton.SetActive(true);
     }
     public void StartNewGame()
     {
-        if (SaveData.gameExists)
+        if (SaveManager.Current.gameExists)
         {
             _Menu.SetActive(false);
             _AproveMenu.SetActive(true);
@@ -28,24 +28,24 @@ public class MainMenu : MonoBehaviour
         {
             Debug.Log("Новая игра");
             SceneManager.LoadScene("MainScene");
-            SaveData.multipleMoney = 1;
-            SaveData.foodCount = 22;
-            SaveData.funCount = 22;
-            SaveData.healthCount = 22;
-            SaveData.money = 20000;
-            SaveData.gameExists = true;
-            SaveData.dropFood = 2;
-            SaveData.dropHealth = 2;
-            SaveData.dropFun = 2;
-            SaveData.drainFoodSpeedCount = 15;
-            SaveData.CostFoodSpeedUpgrade = 100;
-            SaveData.CostFoodRateUpgrade = 1000;
-            SaveData.drainFunSpeedCount = 15;
-            SaveData.CostFunSpeedUpgrade = 100;
-            SaveData.CostFunRateUpgrade = 1000;
-            SaveData.drainHealthSpeedCount = 15;
-            SaveData.CostHealthSpeedUpgrade = 100;
-            SaveData.CostHealthRateUpgrade = 1000;
+            SaveManager.Current.multipleMoney = 1;
+            SaveManager.Current.foodCount = 22;
+            SaveManager.Current.funCount = 22;
+            SaveManager.Current.healthCount = 22;
+            SaveManager.Current.money = 20000;
+            SaveManager.Current.gameExists = true;
+            SaveManager.Current.dropFood = 2;
+            SaveManager.Current.dropHealth = 2;
+            SaveManager.Current.dropFun = 2;
+            SaveManager.Current.foodDrainSpeed = 15;
+            SaveManager.Current.costFoodSpeedUpgrade = 100;
+            SaveManager.Current.costFoodRateUpgrade = 1000;
+            SaveManager.Current.funDrainSpeed = 15;
+            SaveManager.Current.costFunSpeedUpgrade = 100;
+            SaveManager.Current.costFunRateUpgrade = 1000;
+            SaveManager.Current.healthDrainSpeed = 15;
+            SaveManager.Current.costHealthSpeedUpgrade = 100;
+            SaveManager.Current.costHealthRateUpgrade = 1000;
         }
     }
     public void LoadScene(string sceneName)
@@ -61,7 +61,7 @@ public class MainMenu : MonoBehaviour
     {
         if (yes)
         {
-            SaveData.gameExists = false;
+            SaveManager.Current.gameExists = false;
             StartNewGame();
         }
         else
@@ -76,6 +76,7 @@ public class MainMenu : MonoBehaviour
     }
     public void ExitApp()
     {
+        SaveManager.Save();
         Application.Quit();
     }
 }

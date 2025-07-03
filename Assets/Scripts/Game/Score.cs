@@ -23,16 +23,16 @@ public class Score : MonoBehaviour
     {
         _scoreText.text = _score.ToString();
 
-        _bestScore.text = SaveData.flappyScore.ToString();
+        _bestScore.text = SaveManager.Current.flappyScore.ToString();
 
         UpdateBestScore();
     }
 
     private void UpdateBestScore()
     {
-        if (_score > SaveData.flappyScore)
+        if (_score > SaveManager.Current.flappyScore)
         {
-            SaveData.flappyScore = _score;
+            SaveManager.Current.flappyScore = _score;
             _bestScore.text = _score.ToString();
         }
     }
@@ -43,7 +43,7 @@ public class Score : MonoBehaviour
         _scoreText.text = _score.ToString();
         MultipleMoney();
         UpdateBestScore();
-        SaveData.money += _basicMultiple;
+        SaveManager.Current.money += _basicMultiple;
     }
 
     private void MultipleMoney()
